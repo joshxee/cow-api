@@ -1,7 +1,9 @@
-DROP TABLE IF EXISTS cows;
+DROP TABLE IF EXISTS cow;
 
-CREATE TABLE cows
+CREATE TABLE cow
 (
-    id          INTEGER PRIMARY KEY,
-    number      INTEGER NOT NULL
+    id        uuid DEFAULT(gen_random_uuid()) PRIMARY KEY NOT NULL,
+    number    INTEGER                                                           NOT NULL,
+    name      VARCHAR(100),
+    collar_id INTEGER                                                           NOT NULL
 );
