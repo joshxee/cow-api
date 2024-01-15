@@ -19,20 +19,23 @@ repositories {
 dependencies {
   annotationProcessor("io.micronaut.data:micronaut-data-processor")
   ksp("io.micronaut:micronaut-http-validation")
+  // Persistence
+  implementation("io.micronaut.flyway:micronaut-flyway")
+  implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+  implementation("io.micronaut.data:micronaut-data-jdbc")
   // We are pinning openapi to 6.3.0 because of https://github.com/micronaut-projects/micronaut-openapi/issues/1154
   ksp("io.micronaut.openapi:micronaut-openapi:6.3.0!!")
   ksp("io.micronaut.serde:micronaut-serde-processor")
   implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
   implementation("io.micronaut.redis:micronaut-redis-lettuce")
   implementation("io.micronaut.serde:micronaut-serde-jackson")
-  implementation("io.micronaut.sql:micronaut-jdbc-hikari")
   implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
   compileOnly("io.micronaut:micronaut-http-client")
   compileOnly("io.micronaut.openapi:micronaut-openapi-annotations:6.3.0!!")
+  runtimeOnly("org.postgresql:postgresql")
   runtimeOnly("ch.qos.logback:logback-classic")
   runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
-  runtimeOnly("org.postgresql:postgresql")
   testImplementation("io.micronaut:micronaut-http-client")
 }
 
