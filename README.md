@@ -31,11 +31,7 @@
 
 To run the Cows API locally, follow these steps:
 
-1. Navigate to the project directory:
-  ```shell
-  cd <example-path>/cows
-  ```
-
+1. Navigate to the project directory
 2. Start the PostgreSQL database and Redis using Docker:
   ```shell
   docker-compose up -d
@@ -66,7 +62,7 @@ Run the following command to build the docker image locally:
 ./gradlew dockerBuild
 ```
 
-The image will be used in the `docker-compose.yml` file to run the application. The dockerised application will be accessible at `http://localhost:8090`.
+The image will be used in the `compose.yaml` file to run the application. The dockerised application will be accessible at `http://localhost:8090`.
 
 ## Notes
 Comments with `Future Stuff` are things that I would like to do, but I didn't have time to do it.
