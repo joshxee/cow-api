@@ -17,18 +17,27 @@ internal abstract class JdbcCowRepository : GenericRepository<CowEntity, String>
 internal class CowRepositoryImpl(
   private val jdbcCowRepository: JdbcCowRepository
 ) : CowRepository {
-  override fun save(number: Number, @Suppress("LocalVariableName", "NonAsciiCharacters") `🐄`: String?, collarId: Number): Result<Cow> {
-    val savedCowEntity = jdbcCowRepository.save(
-      number = number,
-      name = `🐄`,
-      collarId = collarId
-    )
+  override fun save(
+    number: Number,
+    @Suppress("LocalVariableName", "NonAsciiCharacters") `🐄`: String?,
+    collarId: Number
+  ): Result<Cow> {
+    try {
+      val savedCowEntity = jdbcCowRepository.save(
+        number = number,
+        name = `🐄`,
+        collarId = collarId
+      )
 
-    return Result.success(Cow(
-      id = let { savedCowEntity.id } ?: return Result.failure(IllegalStateException("CowEntity.id is null")),
-      number = savedCowEntity.number,
-      `🐄` = savedCowEntity.name,
-      collarId = savedCowEntity.collarId
-    ))
+      return Result.success(Cow(
+        id = let { savedCowEntity.id } ?: return Result.failure(IllegalStateException("CowEntity.id is null")),
+        number = savedCowEntity.number,
+        `🐄` = savedCowEntity.name,
+        collarId = savedCowEntity.collarId
+      ))
+    } catch (e: Exception) {
+      // Future stuff: convert the exception to a domain exception
+      return Result.failure(e)
+    }
   }
 }
