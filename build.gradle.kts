@@ -18,11 +18,15 @@ repositories {
 
 dependencies {
   annotationProcessor("io.micronaut.data:micronaut-data-processor")
+  testAnnotationProcessor("io.micronaut:micronaut-inject-java")
   ksp("io.micronaut:micronaut-http-validation")
   // Persistence
   implementation("io.micronaut.flyway:micronaut-flyway")
   implementation("io.micronaut.sql:micronaut-jdbc-hikari")
   implementation("io.micronaut.data:micronaut-data-jdbc")
+  // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+  implementation("org.apache.commons:commons-lang3:3.14.0")
+
   // We are pinning openapi to 6.3.0 because of https://github.com/micronaut-projects/micronaut-openapi/issues/1154
   ksp("io.micronaut.openapi:micronaut-openapi:6.3.0!!")
   ksp("io.micronaut.serde:micronaut-serde-processor")
@@ -36,7 +40,14 @@ dependencies {
   runtimeOnly("org.postgresql:postgresql")
   runtimeOnly("ch.qos.logback:logback-classic")
   runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+  runtimeOnly("org.mockito:mockito-junit-jupiter")
   testImplementation("io.micronaut:micronaut-http-client")
+  testImplementation("io.micronaut.testresources:micronaut-test-resources-extensions-junit-platform")
+
+  // Testing
+  testCompileOnly("org.mockito:mockito-junit-jupiter")
+  testCompileOnly("io.micronaut.test:micronaut-test-junit5")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
 
