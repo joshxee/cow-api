@@ -12,9 +12,9 @@ data class CowEntity(
   @GeneratedValue(GeneratedValue.Type.UUID)
   val id: String? = null,
 
-  val number: Number,
+  val number: Int,
 
   val name: String? = null,
 
-  val collarId: Number
+  val collarId: Int
 )

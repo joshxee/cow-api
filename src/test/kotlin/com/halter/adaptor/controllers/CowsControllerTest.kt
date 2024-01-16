@@ -4,6 +4,7 @@ import com.halter.adaptor.dtos.CreateCowRequest
 import com.halter.core.arguments.CreateCowArgument
 import com.halter.core.domain.Cow
 import com.halter.core.usecases.CreateCowUseCase
+import com.halter.core.usecases.GetAllCowsUseCase
 import org.apache.commons.lang3.RandomStringUtils
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -15,7 +16,8 @@ import kotlin.random.Random.Default.nextInt
 class CowsControllerTest {
 
   private val createCowUseCase = mock<CreateCowUseCase>()
-  private val tested = CowsController(createCowUseCase)
+  private val getAllCowsUseCase = mock<GetAllCowsUseCase>()
+  private val tested = CowsController(createCowUseCase, getAllCowsUseCase)
 
   @Test
   fun `should create cow`() {
@@ -53,8 +55,8 @@ class CowsControllerTest {
     then(cow).should().`🐄`
 
     assertEquals(actual.id, id)
-    assertEquals(actual.number, number)
-    assertEquals(actual.collarId, collarId)
+    assertEquals(actual.cowNumber, number.toString())
+    assertEquals(actual.collarId, collarId.toString())
     assertEquals(actual.`🐄`, null)
   }
 
@@ -84,5 +86,36 @@ class CowsControllerTest {
     then(createCowUseCase).should().execute(arguments)
 
     assertEquals(actual.exceptionOrNull()!!.message, "Unexpected result")
+  }
+
+  @Test
+  fun `should return cows when get all cows`() {
+    val cow = mock<Cow>()
+    val cowResult = Result.success(listOf(cow))
+    val id = RandomStringUtils.randomAlphanumeric(36)
+    val number = nextInt()
+    val collarId = nextInt()
+
+    // Given
+    given(getAllCowsUseCase.execute()).willReturn(cowResult)
+    given(cow.id).willReturn(id)
+    given(cow.number).willReturn(number)
+    given(cow.collarId).willReturn(collarId)
+    given(cow.`🐄`).willReturn(null)
+
+    // When
+    val actual = tested.getAll()
+
+    // Then
+    then(getAllCowsUseCase).should().execute()
+    then(cow).should().id
+    then(cow).should().number
+    then(cow).should().collarId
+    then(cow).should().`🐄`
+
+    assertEquals(actual[0].id, id)
+    assertEquals(actual[0].cowNumber, number.toString())
+    assertEquals(actual[0].collarId, collarId.toString())
+    assertEquals(actual[0].`🐄`, null)
   }
 }

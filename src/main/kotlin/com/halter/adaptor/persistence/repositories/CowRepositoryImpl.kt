@@ -10,7 +10,7 @@ import jakarta.inject.Singleton
 
 @JdbcRepository(dialect = Dialect.POSTGRES)
 internal abstract class JdbcCowRepository : GenericRepository<CowEntity, String> {
-  internal abstract fun save(number: Number, name: String?, collarId: Number): CowEntity
+  internal abstract fun save(number: Int, name: String?, collarId: Int): CowEntity
 }
 
 @Singleton
@@ -18,9 +18,9 @@ internal class CowRepositoryImpl(
   private val jdbcCowRepository: JdbcCowRepository
 ) : CowRepository {
   override fun save(
-    number: Number,
+    number: Int,
     @Suppress("LocalVariableName", "NonAsciiCharacters") `🐄`: String?,
-    collarId: Number
+    collarId: Int
   ): Result<Cow> {
     try {
       val savedCowEntity = jdbcCowRepository.save(
@@ -39,5 +39,9 @@ internal class CowRepositoryImpl(
       // Future stuff: convert the exception to a domain exception
       return Result.failure(e)
     }
+  }
+
+  override fun findAll(): List<Cow> {
+    TODO("Not yet implemented")
   }
 }
