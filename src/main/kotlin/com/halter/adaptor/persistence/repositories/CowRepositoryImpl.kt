@@ -41,7 +41,11 @@ internal class CowRepositoryImpl(
     }
   }
 
-  override fun findAll(): List<Cow> {
+  override fun findAll(): Result<List<Cow>> {
+    TODO("Not yet implemented")
+  }
+
+  override fun update(cow: Cow): Result<Cow> {
     TODO("Not yet implemented")
   }
 }

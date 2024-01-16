@@ -1,17 +1,16 @@
 package com.halter.adaptor.controllers
 
+import com.halter.adaptor.dtos.CowRequest
 import com.halter.adaptor.dtos.CowResponse
-import com.halter.adaptor.dtos.CreateCowRequest
 import com.halter.adaptor.dtos.LastLocationResponse
+import com.halter.adaptor.persistence.UpdateCowUseCase
 import com.halter.core.arguments.CreateCowArgument
+import com.halter.core.arguments.UpdateCowArgument
 import com.halter.core.domain.Cow
 import com.halter.core.usecases.CreateCowUseCase
 import com.halter.core.usecases.GetAllCowsUseCase
 import io.micronaut.http.MediaType
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.*
 import io.micronaut.openapi.annotation.OpenAPIGroup
 import io.micronaut.scheduling.TaskExecutors
 import io.micronaut.scheduling.annotation.ExecuteOn
@@ -22,16 +21,17 @@ import io.swagger.v3.oas.annotations.Operation
 @ExecuteOn(TaskExecutors.BLOCKING)
 class CowsController(
   private val createCowUseCase: CreateCowUseCase,
-  private val getAllCowsUseCase: GetAllCowsUseCase
+  private val getAllCowsUseCase: GetAllCowsUseCase,
+  private val updateCowUseCase: UpdateCowUseCase
 ) {
 
   @Operation(summary = "Create a new cow")
   @Post(uri = "/", produces = [MediaType.TEXT_JSON], consumes = [MediaType.TEXT_JSON])
-  fun create(@Body createCowRequest: CreateCowRequest): CowResponse {
+  fun create(@Body cowRequest: CowRequest): CowResponse {
     val arguments = CreateCowArgument(
-      number = createCowRequest.number,
-      collarId = createCowRequest.collarId,
-      `🐄` = createCowRequest.`🐄`
+      number = cowRequest.number,
+      collarId = cowRequest.collarId,
+      `🐄` = cowRequest.`🐄`
     )
     val result = createCowUseCase.execute(arguments)
       .getOrElse { exception ->
@@ -69,4 +69,21 @@ class CowsController(
       }
     }
   )
+
+  @Operation(summary = "Update a cow by id")
+  @Post(uri = "/{id}", produces = [MediaType.TEXT_JSON], consumes = [MediaType.TEXT_JSON])
+  fun update(cowRequest: CowRequest, @PathVariable id: String): CowResponse {
+    val arguments = UpdateCowArgument(
+      id = id,
+      number = cowRequest.number,
+      collarId = cowRequest.collarId,
+      `🐄` = cowRequest.`🐄`
+    )
+    val result = updateCowUseCase.execute(arguments)
+      .getOrElse { exception ->
+        // Future Stuff: Handle errors
+        throw Exception("Unexpected result", exception)
+      }
+    return result.toResponse()
+  }
 }

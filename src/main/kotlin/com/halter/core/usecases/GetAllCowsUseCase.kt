@@ -16,7 +16,7 @@ class GetAllCowsUseCaseImpl(
   private val deviceService: DeviceService
 ) : GetAllCowsUseCase {
   override fun execute(): Result<List<Cow>> {
-    val cows = cowRepository.findAll()
+    val cows = cowRepository.findAll().getOrThrow()
     try {
       val cowsWithDevice = cows.map { cow ->
         val deviceResult = deviceService.getDeviceByCollarId(cow.collarId)

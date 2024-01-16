@@ -24,7 +24,7 @@ class GetAllCowsUseCaseImplTest {
     val deviceResult = Result.success(device)
 
     // Given
-    given(cowRepository.findAll()).willReturn(listOf(cow))
+    given(cowRepository.findAll()).willReturn(Result.success(listOf(cow)))
     given(cow.collarId).willReturn(collarId)
     given(deviceService.getDeviceByCollarId(collarId)).willReturn(deviceResult)
 
