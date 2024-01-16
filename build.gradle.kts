@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
   annotationProcessor("io.micronaut.data:micronaut-data-processor")
+  annotationProcessor("io.micronaut.openapi:micronaut-openapi:6.3.0!!")
   testAnnotationProcessor("io.micronaut:micronaut-inject-java")
   ksp("io.micronaut:micronaut-http-validation")
   // Persistence

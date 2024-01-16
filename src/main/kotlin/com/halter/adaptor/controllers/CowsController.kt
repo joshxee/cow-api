@@ -10,17 +10,23 @@ import com.halter.core.usecases.GetAllCowsUseCase
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
+import io.micronaut.openapi.annotation.OpenAPIGroup
+import io.micronaut.scheduling.TaskExecutors
+import io.micronaut.scheduling.annotation.ExecuteOn
 import io.swagger.v3.oas.annotations.Operation
 
 @Controller("/cows")
+@OpenAPIGroup("Cows")
+@ExecuteOn(TaskExecutors.BLOCKING)
 class CowsController(
   private val createCowUseCase: CreateCowUseCase,
   private val getAllCowsUseCase: GetAllCowsUseCase
 ) {
 
   @Operation(summary = "Create a new cow")
-  @Post(uri = "", produces = [MediaType.TEXT_JSON], consumes = [MediaType.TEXT_JSON])
+  @Post(uri = "/", produces = [MediaType.TEXT_JSON], consumes = [MediaType.TEXT_JSON])
   fun create(@Body createCowRequest: CreateCowRequest): CowResponse {
     val arguments = CreateCowArgument(
       number = createCowRequest.number,
@@ -36,7 +42,7 @@ class CowsController(
   }
 
   @Operation(summary = "Get all cows")
-  @Post(uri = "", produces = [MediaType.TEXT_JSON], consumes = [MediaType.TEXT_JSON])
+  @Get(uri = "/", produces = [MediaType.TEXT_JSON], consumes = [MediaType.TEXT_JSON])
   fun getAll(): List<CowResponse> {
     val cows = getAllCowsUseCase.execute()
       .getOrElse { exception ->
