@@ -1,48 +1,72 @@
-## Micronaut 4.2.3 Documentation
+# 🐄 Cows API 🐄
 
-- [User Guide](https://docs.micronaut.io/4.2.3/guide/index.html)
-- [API Reference](https://docs.micronaut.io/4.2.3/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/4.2.3/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
+## Table of Contents
+- [Tech Stack](#tech-stack)
+- [Local Development](#local-development)
+- [API Documentation](#api-documentation)
+- [Testing](#testing)
+- [Notes](#notes)
 
----
+## Tech Stack
 
-- [Micronaut Gradle Plugin documentation](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/)
-- [GraalVM Gradle Plugin documentation](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
-- [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
+**Application**
+ - [Micronaut](https://docs.micronaut.io/4.2.3/guide/index.html)
+ - [Kotlin](https://kotlinlang.org/docs/home.html)
+ - [Gradle](https://docs.gradle.org/current/userguide/userguide.html)
+ - [Docker](https://docs.docker.com/)
 
-## Feature openapi documentation
+**Persistence**
+ - [PostgreSQL](https://www.postgresql.org/docs/13/index.html)
+ - [Flyway](https://flywaydb.org/documentation/)
+ - [jdbc](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#jdbc)
 
-- [Micronaut OpenAPI Support documentation](https://micronaut-projects.github.io/micronaut-openapi/latest/guide/index.html)
+**API Documentation**
+ - [OpenAPI](https://micronaut-projects.github.io/micronaut-openapi/latest/guide/index.html)
+ - [Swagger-ui](https://swagger.io/tools/swagger-ui/)
 
-- [https://www.openapis.org](https://www.openapis.org)
-
-## Feature micronaut-aot documentation
-
-- [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
-
-## Feature jdbc-hikari documentation
-
-- [Micronaut Hikari JDBC Connection Pool documentation](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#jdbc)
-
-## Feature swagger-ui documentation
-
-- [Micronaut Swagger UI documentation](https://micronaut-projects.github.io/micronaut-openapi/latest/guide/index.html)
-
-- [https://swagger.io/tools/swagger-ui/](https://swagger.io/tools/swagger-ui/)
-
-## Feature test-resources documentation
-
+**Testing**
 - [Micronaut Test Resources documentation](https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/)
 
-## Feature ksp documentation
+## Local Development
 
-- [Micronaut Kotlin Symbol Processing (KSP) documentation](https://docs.micronaut.io/latest/guide/#kotlin)
+To run the Cows API locally, follow these steps:
 
-- [https://kotlinlang.org/docs/ksp-overview.html](https://kotlinlang.org/docs/ksp-overview.html)
+1. Navigate to the project directory:
+  ```shell
+  cd <example-path>/cows
+  ```
 
-## Feature serialization-jackson documentation
+2. Start the PostgreSQL database and Redis using Docker:
+  ```shell
+  docker-compose up -d
+  ```
 
-- [Micronaut Serialization Jackson Core documentation](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/)
+3. Build and run the application:
+  ```shell
+  ./gradlew run
+  ```
 
+4. The API will be accessible at `http://localhost:8080`.
 
+## API Documentation
+
+The API documentation is generated using OpenAPI and can be accessed at `http://localhost:8080/swagger-ui/index.html`.
+
+## Testing
+
+To run the tests, use the following command:
+
+```shell
+./gradlew test
+```
+
+## Local Docker Image
+Run the following command to build the docker image locally:
+```shell
+./gradlew dockerBuild
+```
+
+The image will be used in the `docker-compose.yml` file to run the application. The dockerised application will be accessible at `http://localhost:8090`.
+
+## Notes
+Comments with `Future Stuff` are things that I would like to do, but I didn't have time to do it.
