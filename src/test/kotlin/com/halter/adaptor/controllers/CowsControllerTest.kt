@@ -50,7 +50,7 @@ class CowsControllerTest {
     given(cow.id).willReturn(id)
     given(cow.number).willReturn(number)
     given(cow.collarId).willReturn(collarId)
-    given(cow.`🐄`).willReturn(null)
+    given(cow.name).willReturn(null)
 
     // When
     val actual = tested.create(cowRequest)
@@ -60,7 +60,7 @@ class CowsControllerTest {
     then(cow).should().id
     then(cow).should().number
     then(cow).should().collarId
-    then(cow).should().`🐄`
+    then(cow).should().name
 
     assertEquals(actual.id, id)
     assertEquals(actual.cowNumber, number.toString())
@@ -109,7 +109,7 @@ class CowsControllerTest {
     given(cow.id).willReturn(id)
     given(cow.number).willReturn(number)
     given(cow.collarId).willReturn(collarId)
-    given(cow.`🐄`).willReturn(null)
+    given(cow.name).willReturn(null)
 
     // When
     val actual = tested.getAll()
@@ -119,7 +119,7 @@ class CowsControllerTest {
     then(cow).should().id
     then(cow).should().number
     then(cow).should().collarId
-    then(cow).should().`🐄`
+    then(cow).should().name
 
     assertEquals(actual[0].id, id)
     assertEquals(actual[0].cowNumber, number.toString())
@@ -152,7 +152,7 @@ class CowsControllerTest {
       id = id,
       number = number,
       collarId = collarId,
-      `🐄` = null,
+      name = null,
       collarStatus = collarStatus,
       lastLocation = LastLocation(
         latitude = latitude,

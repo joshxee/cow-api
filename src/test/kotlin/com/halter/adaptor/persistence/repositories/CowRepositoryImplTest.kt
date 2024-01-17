@@ -21,7 +21,7 @@ class CowRepositoryImplTest {
     val collarId = nextInt()
     val id = RandomStringUtils.randomAlphanumeric(36)
     val cowEntity = CowEntity(id = id, number = number, name = null, collarId = collarId)
-    val expected = Cow(id = id, number = number, `🐄` = null, collarId = collarId)
+    val expected = Cow(id = id, number = number, name = null, collarId = collarId)
 
     // Given
     given(

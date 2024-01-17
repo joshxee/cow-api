@@ -21,12 +21,11 @@ class GetAllCowsUseCaseImplTest {
     val cow = mock<Cow>()
     val collarId = nextInt()
     val device = mock<Device>()
-    val deviceResult = Result.success(device)
 
     // Given
     given(cowRepository.findAll()).willReturn(Result.success(listOf(cow)))
     given(cow.collarId).willReturn(collarId)
-    given(deviceService.getDeviceByCollarId(collarId)).willReturn(deviceResult)
+    given(deviceService.getDeviceByCollarId(collarId)).willReturn(device)
 
     // When
     val actual = tested.execute()

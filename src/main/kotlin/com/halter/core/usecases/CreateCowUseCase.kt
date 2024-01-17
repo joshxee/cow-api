@@ -23,18 +23,17 @@ class CreateCowUseCaseImpl(
     )
 
     savedCow.onSuccess { cow ->
-      val deviceResult = deviceService.getDeviceByCollarId(createCowRequest.collarId)
-
-      deviceResult.onSuccess { device ->
+      try {
+        val device = deviceService.getDeviceByCollarId(cow.collarId)
         return Result.success(
           cow.copy(
             collarStatus = device.status,
             lastLocation = device.lastLocation
           )
         )
-      }
-      deviceResult.onFailure {
-        // Future stuff: Either log or handle the exception
+      } catch (e: Exception) {
+        // Future stuff: convert the exception to a domain exception
+        return Result.failure(e)
       }
     }
     return savedCow

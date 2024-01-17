@@ -17,29 +17,26 @@ class UpdateCowUseCaseImpl(
   private val cowRepository: CowRepository
 ) : UpdateCowUseCase {
   override fun execute(arguments: UpdateCowArgument): Result<Cow> {
-    val cowResult = cowRepository.update(
-      Cow(
-        id = arguments.id,
-        number = arguments.number,
-        name = arguments.`🐄`,
-        collarId = arguments.collarId
-      )
-    )
-
-    cowResult.onSuccess { cow ->
-      val deviceResult = deviceService.getDeviceByCollarId(arguments.collarId)
-      deviceResult.onSuccess { device ->
-        return Result.success(
-          cow.copy(
-            collarStatus = device.status,
-            lastLocation = device.lastLocation
-          )
+    try {
+      val cow = cowRepository.update(
+        Cow(
+          id = arguments.id,
+          number = arguments.number,
+          name = arguments.`🐄`,
+          collarId = arguments.collarId
         )
-      }
-      deviceResult.onFailure {
-        // Future: Either log or handle the error
-      }
+      )
+
+      val device = deviceService.getDeviceByCollarId(arguments.collarId)
+      return Result.success(
+        cow.copy(
+          collarStatus = device.status,
+          lastLocation = device.lastLocation
+        )
+      )
+    } catch (e: Exception) {
+      // Future stuff: convert the exception to a domain exception
+      return Result.failure(e)
     }
-    return cowResult
   }
 }

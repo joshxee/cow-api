@@ -64,20 +64,14 @@ internal open class CowRepositoryImpl(
     }
   }
 
-  @Cacheable
-  override fun update(cow: Cow): Result<Cow> {
-    try {
-      jdbcCowRepository.update(
-        id = cow.id,
-        number = cow.number,
-        name = cow.name,
-        collarId = cow.collarId
-      )
-      return Result.success(cow)
-    } catch (e: Exception) {
-      // Future stuff: convert the exception to a domain exception
-      return Result.failure(e)
-    }
-
+  @Cacheable(parameters = ["cow"])
+  override fun update(cow: Cow): Cow {
+    jdbcCowRepository.update(
+      id = cow.id,
+      number = cow.number,
+      name = cow.name,
+      collarId = cow.collarId
+    )
+    return cow
   }
 }

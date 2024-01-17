@@ -34,7 +34,6 @@ class UpdateCowUseCaseImplTest {
       number = number,
       collarId = collarId
     )
-    val updatedCowResult = Result.success(updatedCow)
 
     val arguments = UpdateCowArgument(
       number = number,
@@ -48,8 +47,8 @@ class UpdateCowUseCaseImplTest {
     )
 
     // Given
-    given(cowRepository.update(existingCow)).willReturn(updatedCowResult)
-    given(deviceService.getDeviceByCollarId(collarId)).willReturn(Result.success(device))
+    given(cowRepository.update(existingCow)).willReturn(updatedCow)
+    given(deviceService.getDeviceByCollarId(collarId)).willReturn(device)
 
     // When
     val actual = tested.execute(arguments).getOrNull()

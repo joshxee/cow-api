@@ -19,8 +19,7 @@ class GetAllCowsUseCaseImpl(
     val cows = cowRepository.findAll().getOrThrow()
     try {
       val cowsWithDevice = cows.map { cow ->
-        val deviceResult = deviceService.getDeviceByCollarId(cow.collarId)
-        val device = deviceResult.getOrThrow()
+        val device = deviceService.getDeviceByCollarId(cow.collarId)
         cow.copy(
           collarStatus = device.status,
           lastLocation = device.lastLocation

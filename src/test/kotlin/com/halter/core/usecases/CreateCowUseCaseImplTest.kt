@@ -29,7 +29,7 @@ class CreateCowUseCaseImplTest {
     val cow = Cow(
       id = randomAlphabetic(36),
       number = number,
-      `🐄` = name,
+      name = name,
       collarId = collarId
     )
     val cowResult = Result.success(cow)
@@ -40,7 +40,6 @@ class CreateCowUseCaseImplTest {
       status = deviceStatus,
       lastLocation = lastLocation
     )
-    val deviceResult = Result.success(device)
 
     val expected = cow.copy(
       collarStatus = deviceStatus,
@@ -53,7 +52,7 @@ class CreateCowUseCaseImplTest {
     given(createCowRequest.`🐄`).willReturn(name)
 
     given(cowRepository.save(number, name, collarId)).willReturn(cowResult)
-    given(deviceService.getDeviceByCollarId(collarId)).willReturn(deviceResult)
+    given(deviceService.getDeviceByCollarId(collarId)).willReturn(device)
 
     // When
     val actual = tested.execute(createCowRequest)
