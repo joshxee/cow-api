@@ -54,24 +54,8 @@ class CowsController(
     return cows.map { cow -> cow.toResponse() }
   }
 
-  private fun Cow.toResponse() = CowResponse(
-    id = this.id,
-    cowNumber = this.number.toString(),
-    collarId = this.collarId.toString(),
-    `🐄` = this.`🐄`,
-    collarStatus = this.collarStatus,
-    lastLocation = this.lastLocation.let { lastLocation ->
-      lastLocation?.let {
-        LastLocationResponse(
-          latitude = it.latitude,
-          longitude = it.longitude
-        )
-      }
-    }
-  )
-
   @Operation(summary = "Update a cow by id")
-  @Post(uri = "/{id}", produces = [MediaType.TEXT_JSON], consumes = [MediaType.TEXT_JSON])
+  @Put(uri = "/{id}", produces = [MediaType.TEXT_JSON], consumes = [MediaType.TEXT_JSON])
   fun update(cowRequest: CowRequest, @PathVariable id: String): CowResponse {
     val arguments = UpdateCowArgument(
       id = id,
@@ -86,4 +70,20 @@ class CowsController(
       }
     return result.toResponse()
   }
+
+  private fun Cow.toResponse() = CowResponse(
+    id = this.id,
+    cowNumber = this.number.toString(),
+    collarId = this.collarId.toString(),
+    `🐄` = this.name,
+    collarStatus = this.collarStatus,
+    lastLocation = this.lastLocation.let { lastLocation ->
+      lastLocation?.let {
+        LastLocationResponse(
+          latitude = it.latitude,
+          longitude = it.longitude
+        )
+      }
+    }
+  )
 }

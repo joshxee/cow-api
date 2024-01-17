@@ -21,6 +21,7 @@ class UpdateCowUseCaseImpl(
       Cow(
         id = arguments.id,
         number = arguments.number,
+        name = arguments.`🐄`,
         collarId = arguments.collarId
       )
     )
@@ -39,7 +40,6 @@ class UpdateCowUseCaseImpl(
         // Future: Either log or handle the error
       }
     }
-
     return cowResult
   }
 }

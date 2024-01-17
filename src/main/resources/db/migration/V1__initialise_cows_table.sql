@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS cow;
 
 CREATE TABLE cow
 (
-    id        uuid DEFAULT(gen_random_uuid()) PRIMARY KEY NOT NULL,
+    id        VARCHAR DEFAULT(gen_random_uuid()) PRIMARY KEY NOT NULL,
     number    INTEGER                                                           NOT NULL,
     name      VARCHAR(100),
     collar_id INTEGER                                                           NOT NULL

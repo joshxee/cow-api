@@ -25,8 +25,8 @@ dependencies {
   implementation("io.micronaut.flyway:micronaut-flyway")
   implementation("io.micronaut.sql:micronaut-jdbc-hikari")
   implementation("io.micronaut.data:micronaut-data-jdbc")
-  // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
   implementation("org.apache.commons:commons-lang3:3.14.0")
+  implementation("io.micronaut.cache:micronaut-cache-core")
 
   // We are pinning openapi to 6.3.0 because of https://github.com/micronaut-projects/micronaut-openapi/issues/1154
   ksp("io.micronaut.openapi:micronaut-openapi:6.3.0!!")
