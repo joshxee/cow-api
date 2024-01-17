@@ -36,7 +36,7 @@ dependencies {
   implementation("io.micronaut.serde:micronaut-serde-jackson")
   implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-  compileOnly("io.micronaut:micronaut-http-client")
+  implementation("io.micronaut:micronaut-http-client")
   compileOnly("io.micronaut.openapi:micronaut-openapi-annotations:6.3.0!!")
   runtimeOnly("org.postgresql:postgresql")
   runtimeOnly("ch.qos.logback:logback-classic")

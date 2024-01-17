@@ -1,7 +1,6 @@
 package com.halter.adaptor.clients
 
 import com.halter.adaptor.dtos.DeviceStatusResponse
-import io.micronaut.core.async.annotation.SingleResult
 import io.micronaut.http.HttpHeaders.ACCEPT
 import io.micronaut.http.HttpHeaders.USER_AGENT
 import io.micronaut.http.annotation.Get
@@ -17,6 +16,5 @@ import io.micronaut.http.client.annotation.Client
 )
 interface DeviceClient {
   @Get("/halter/device/{deviceId}/status")
-  @SingleResult
   fun fetchStatus(@PathVariable deviceId: Int): List<DeviceStatusResponse>
 }
